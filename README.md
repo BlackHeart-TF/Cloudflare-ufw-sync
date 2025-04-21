@@ -3,12 +3,12 @@ Automatically sync cloudflare's IP address list with UFW.
 It uses comments to track its own entries, making it safe to use with existing UFW setups, just remove any cloudflare ones first.
 
 ## Requirements
-Needs **zsh** for the RegEx implementation
-obviously needs **ufw** firewall
-and **curl** to pull the updated IP lists from cloudflare
+- Needs **zsh** for the RegEx implementation
+- obviously needs **ufw** firewall
+- and **curl** to pull the updated IP lists from cloudflare
 
 ## setup
-Simply Run the script to add the current IP cloudflare proxy addresses, and remove old ones, if they were added from the script before.
+Simply Run the script to add the current cloudflare proxy IP addresses, and remove old ones, if they were added from the script before.
 This should be safe to use in existing UFW configurations, but as always, make a backup before testing.
 
 ```bash
