@@ -4,7 +4,8 @@
 cf_comment="Cloudflare IP"
 
 # Fetch the latest Cloudflare IPs (IPv4 and IPv6)
-cloudflare_ips=$(curl -s https://www.cloudflare.com/ips-v{4,6})
+cloudflare_ips=$(curl -s https://www.cloudflare.com/ips-v4; echo; curl -s https://www.cloudflare.com/ips-v6;)
+cloudflare_ips=(${(f)cloudflare_ips})
 
 # Loop through the list of Cloudflare IPs
 for cfip in $cloudflare_ips; do
@@ -17,7 +18,7 @@ done
 #regex='[\ []\s*\S+[]\ ]\s((\S+)(\/\d+)?\s)?([0-9,]+)\/([a-z]+)(\s\(v6\))?\s+(ALLOW|DENY)\s(IN|OUT)\s+(\S+)(\s\(v6\))?\s*(\(out\)\s)?(# .+)?'
 regex="\[\s*(\S+)\]\s((\S+)(\/\d+)?\s)?([0-9,]+)\/([a-z]+)(\s\(v6\))?\s+(ALLOW|DENY)\s(IN|OUT)\s+(\S+)(\s\(v6\))?\s*(\(out\)\s)?(# .+)?"
 # Loop through all rules to find and remove any rules that no longer apply
-echo $regex
+
 ufw status numbered | grep "$cf_comment" | while read -r line; do
     # Match the full UFW rule with a regex to capture the rule number, IP, and ports
 
